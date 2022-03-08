@@ -1,4 +1,11 @@
-import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose';
+import { prop, getModelForClass, modelOptions, Ref } from '@typegoose/typegoose';
+
+class ToDoList {
+  @prop({ type: String, required: true })
+  public content: string;
+  @prop({ type: String, required: true })
+  public dateCreated: string;
+}
 
 @modelOptions({ schemaOptions: { collection: 'users', timestamps: true } })
 class User {
@@ -11,6 +18,9 @@ class User {
   public createdAt?: Date;
 
   public updatedAt?: Date;
+
+  @prop({ required: true, ref: () => ToDoList, default: [] })
+  public todoList: Ref<ToDoList>[];
 }
 
 const UserModel = getModelForClass(User);
