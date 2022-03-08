@@ -16,6 +16,7 @@ class IndexRoute implements Routes {
 
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.indexController.index);
+    this.router.get(`${this.path}view`, authMiddleware, this.indexController.viewTodo);
     this.router.post(`${this.path}new`, authMiddleware, validationMiddleware(CreateNewTodo, 'body'), this.indexController.addTodo);
     this.router.post(`${this.path}delete`, authMiddleware, validationMiddleware(DeleteTodo, 'body'), this.indexController.removeTodo);
   }
