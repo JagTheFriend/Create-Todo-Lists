@@ -1,4 +1,5 @@
 import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose';
+import { v4 as UUIDv4 } from 'uuid';
 
 class ToDoList {
   @prop({ type: String, required: true })
@@ -6,6 +7,9 @@ class ToDoList {
 
   @prop({ type: String, required: true })
   public dateCreated: string;
+
+  @prop({ type: String, unique: true, required: true, default: () => UUIDv4() })
+  public uniqueId: string;
 }
 
 @modelOptions({ schemaOptions: { collection: 'users', timestamps: true } })
