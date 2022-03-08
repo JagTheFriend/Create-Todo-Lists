@@ -7,3 +7,8 @@ export class CreateNewTodo {
   @IsDateString()
   public dateCreated: string;
 }
+
+export class DeleteTodo {
+  @IsDateString()
+  public dateCreated: string;
+}
