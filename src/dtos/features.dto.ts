@@ -9,6 +9,6 @@ export class CreateNewTodo {
 }
 
 export class DeleteTodo {
-  @IsDateString()
-  public dateCreated: string;
+  @IsString()
+  public uniqueId: string;
 }
