@@ -15,6 +15,14 @@ class IndexController {
     }
   };
 
+  public viewTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      res.send(await this.coreService.viewTodo(<User>req.user));
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public addTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       await this.coreService.addTodo(<User>req.user, <CreateNewTodo>req.body);
