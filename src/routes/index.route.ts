@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import IndexController from '@controllers/index.controller';
 import { Routes } from '@interfaces/routes.interface';
+import authMiddleware from '@middlewares/auth.middleware';
+import validationMiddleware from '@middlewares/validation.middleware';
+import { CreateNewTodo } from '@dtos/features.dto';
 
 class IndexRoute implements Routes {
   public path = '/';
@@ -13,7 +16,7 @@ class IndexRoute implements Routes {
 
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.indexController.index);
-    this.router.post(`${this.path}new`, this.indexController.newToDo);
+    this.router.post(`${this.path}new`, authMiddleware, validationMiddleware(CreateNewTodo, 'body'), this.indexController.newToDo);
   }
 }
 

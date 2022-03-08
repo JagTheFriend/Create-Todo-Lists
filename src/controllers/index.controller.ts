@@ -1,3 +1,4 @@
+import { RequestWithUser } from '@interfaces/auth.interface';
 import { NextFunction, Request, Response } from 'express';
 
 class IndexController {
@@ -8,7 +9,7 @@ class IndexController {
       next(error);
     }
   };
-  public newToDo = async (req: Request, res: Response, next: NextFunction) => {
+  public newToDo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       res.status(200).send(req.body);
     } catch (error) {
