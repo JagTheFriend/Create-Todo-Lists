@@ -5,5 +5,5 @@ export class CreateNewTodo {
   public content: string;
 
   @IsDateString()
-  public date: string;
+  public dateCreated: string;
 }
