@@ -8,6 +8,13 @@ class IndexController {
       next(error);
     }
   };
+  public newToDo = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.status(200).send(req.body);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default IndexController;
