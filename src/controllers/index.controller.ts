@@ -17,7 +17,7 @@ class IndexController {
 
   public addTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      this.coreService.addTodo(<User>req.user, <CreateNewTodo>req.body);
+      await this.coreService.addTodo(<User>req.user, <CreateNewTodo>req.body);
       res.status(200).send(req.body);
     } catch (error) {
       next(error);
@@ -26,7 +26,7 @@ class IndexController {
 
   public removeTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      this.coreService.removeTodo(<User>req.user, <DeleteTodo>req.body);
+      await this.coreService.removeTodo(<User>req.user, <DeleteTodo>req.body);
       res.status(200).send(req.body);
     } catch (error) {
       next(error);

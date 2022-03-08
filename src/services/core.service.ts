@@ -7,7 +7,7 @@ class CoreService {
   public async addTodo(user: User, data: CreateNewTodo): Promise<void> {
     user.todoList.push({ content: data.content, dateCreated: data.dateCreated });
     user.uniqueIds.push(UUIDv4());
-    user.save();
+    await user.save();
   }
 
   public async removeTodo(user: User, uniqueId: DeleteTodo): Promise<void> {
@@ -15,7 +15,7 @@ class CoreService {
     if (index === -1) throw new HttpException(402, `Invalid ID: ${uniqueId.uniqueId}`);
     user.uniqueIds.splice(index, index - 1);
     user.todoList.splice(index, index - 1);
-    user.save();
+    await user.save();
   }
 }
 
