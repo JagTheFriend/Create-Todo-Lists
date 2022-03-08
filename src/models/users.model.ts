@@ -24,7 +24,7 @@ class User {
   public todoList: ToDoList[];
 
   @prop({ required: true, default: [] })
-  public uniqueIds: String[];
+  public uniqueIds: string[];
 }
 
 const UserModel = getModelForClass(User);
