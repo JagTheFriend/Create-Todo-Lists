@@ -8,6 +8,6 @@ export interface User {
   email: string;
   password: string;
   todoList: TodoList[];
-  uniqueId: string[];
+  uniqueIds: string[];
   save: Function;
 }
