@@ -1,7 +1,6 @@
 export interface TodoList {
   content: string;
   dateCreated: string;
-  uniqueId: string;
 }
 
 export interface User {
@@ -9,5 +8,6 @@ export interface User {
   email: string;
   password: string;
   todoList: TodoList[];
+  uniqueId: string[];
   save: Function;
 }
