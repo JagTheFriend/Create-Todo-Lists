@@ -6,18 +6,39 @@
   const input = document.getElementById('inputText');
   const list = document.getElementById('list');
   const minimalValue = 1;
-  const listNum = 0;
+  let listNum = 0;
 
-  const sendRequest = async (endpoint, data) => {
+  const sendRequest = async (endpoint, data, method = "GET") => {
     const dataToSend = {
-      method: 'POST',
+      method: method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     };
     const response = await fetch(endpoint, dataToSend);
     if (response.status >= 400) return alert('Bad request');
     const dataReceived = await response.json();
-    console.log(dataReceived);
+    return dataReceived;
+  };
+
+  window.onload = async () => {
+    const todoList = await sendRequest('/view');
+    for (const todo of todoList) {
+      list.innerHTML += `<li class=" my-3 py-3 shadow list-group-item " id="list${listNum}">
+                <div class="row">
+                <div class="col-1">
+                <input class="mark-as-done" type="checkbox" id="check${listNum}" onclick="done(${listNum})">
+                </div>
+                <div class="col-6">
+                    <span class=" h4" id="text${listNum}"> ${todo.content} </span>
+                </div>
+                <div class="col-4">
+                     <button class=" btn btn-dark" onclick="deleteList(${listNum})">Delete</button>
+                     <button class=" btn btn-dark" onclick="editList(${listNum})">Edit</button>
+                </div>
+                 </div>
+                </li> `;
+      listNum++;
+    }
   };
 
   addList = () => {
