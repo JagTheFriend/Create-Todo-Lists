@@ -1,4 +1,9 @@
 <script>
+  const socket = io();
+  socket.on('connect', () => {
+    console.log('Hello!');
+  });
+
   let input = document.getElementById('inputText');
   let list = document.getElementById('list');
   let minimalValue = 1;
