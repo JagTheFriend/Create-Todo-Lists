@@ -29,6 +29,14 @@
                 </li> `;
       input.value = '';
       listNum++;
+      fixCheckBoxBug('checked-already');
+    }
+  };
+
+  fixCheckBoxBug = className => {
+    const elements = document.getElementsByClassName('checked-already');
+    for (element of elements) {
+      document.getElementById(element.id).checked = true;
     }
   };
 
@@ -38,8 +46,10 @@
     let classExit = current.classList.contains('text-decoration-line-through');
     if (classExit == true) {
       current.classList.remove('text-decoration-line-through');
+      checkbox.classList.remove('checked-already');
     } else {
       current.classList.add('text-decoration-line-through');
+      checkbox.classList.add('checked-already');
     }
   };
 
