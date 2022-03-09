@@ -1,13 +1,13 @@
 import CoreService from '@services/core.service';
 import { RequestWithUser } from '@interfaces/auth.interface';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { CreateNewTodo, DeleteTodo } from '@dtos/features.dto';
 import { User } from '@interfaces/users.interface';
 
 class IndexController {
   public coreService = new CoreService();
 
-  public index = (req: Request, res: Response, next: NextFunction) => {
+  public index = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       res
         .status(200)
