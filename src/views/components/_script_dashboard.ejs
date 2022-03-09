@@ -3,11 +3,23 @@
   socket.on('connect', () => {
     console.log('Hello!');
   });
+  const input = document.getElementById('inputText');
+  const list = document.getElementById('list');
+  const minimalValue = 1;
+  const listNum = 0;
 
-  let input = document.getElementById('inputText');
-  let list = document.getElementById('list');
-  let minimalValue = 1;
-  let listNum = 0;
+  const sendRequest = async (endpoint, data) => {
+    const dataToSend = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    };
+    const response = await fetch(endpoint, dataToSend);
+    if (response.status >= 400) return alert('Bad request');
+    const dataReceived = await response.json();
+    console.log(dataReceived);
+  };
+
   addList = () => {
     // get
     let inputText = filterList(input.value);
@@ -30,6 +42,7 @@
       input.value = '';
       listNum++;
       fixCheckBoxBug('checked-already');
+      sendRequest('/new', { content: inputText, dateCreated: new Date().toISOString() });
     }
   };
 
@@ -80,7 +93,7 @@
       let p = document.getElementById('list');
       let c = document.getElementById(`list${listId}`);
       p.removeChild(c);
-    } else {
+      sendRequest('/delete', { uniqueId: '' });
       console.log('deleted');
     }
   };
