@@ -2,8 +2,7 @@ import { Server } from 'socket.io';
 
 function handleSocketIo_(io: Server) {
   io.on('connect', socket => {
-    console.log('Hi');
-    console.log(socket);
+    console.log('Someone connected!');
   });
 }
 
