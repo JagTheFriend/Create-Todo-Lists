@@ -9,7 +9,13 @@ class IndexController {
 
   public index = (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.status(200).render('dashboard');
+      res
+        .status(200)
+        .set(
+          'Content-Security-Policy',
+          "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
+        )
+        .render('dashboard');
     } catch (error) {
       next(error);
     }
