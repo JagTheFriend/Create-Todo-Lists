@@ -8,7 +8,7 @@
   const minimalValue = 1;
   let listNum = 0;
 
-  const sendRequest = async (endpoint, data, method = "GET") => {
+  const sendRequest = async (endpoint, method, data) => {
     const dataToSend = {
       method: method,
       headers: { 'Content-Type': 'application/json' },
@@ -21,7 +21,7 @@
   };
 
   window.onload = async () => {
-    const todoList = await sendRequest('/view');
+    const { todoList, uniqueIds } = await sendRequest('/view', 'GEt');
     for (const todo of todoList) {
       list.innerHTML += `<li class=" my-3 py-3 shadow list-group-item " id="list${listNum}">
                 <div class="row">
@@ -29,7 +29,7 @@
                 <input class="mark-as-done" type="checkbox" id="check${listNum}" onclick="done(${listNum})">
                 </div>
                 <div class="col-6">
-                    <span class=" h4" id="text${listNum}"> ${todo.content} </span>
+                    <span class="h4 ${uniqueIds[todoList.indexOf(todo)]}" id="text${listNum}"> ${todo.content} </span>
                 </div>
                 <div class="col-4">
                      <button class=" btn btn-dark" onclick="deleteList(${listNum})">Delete</button>
@@ -63,7 +63,7 @@
       input.value = '';
       listNum++;
       fixCheckBoxBug('checked-already');
-      sendRequest('/new', { content: inputText, dateCreated: new Date().toISOString() });
+      sendRequest('/new', 'POST', { content: inputText, dateCreated: new Date().toISOString() });
     }
   };
 
@@ -84,6 +84,8 @@
     } else {
       current.classList.add('text-decoration-line-through');
       checkbox.classList.add('checked-already');
+      // const className = current.className.split(' ')[1];
+      // sendRequest('/delete', 'POST', { uniqueId: className });
     }
   };
 
@@ -113,8 +115,9 @@
     if (deleteConfirm) {
       let p = document.getElementById('list');
       let c = document.getElementById(`list${listId}`);
+      const className = document.getElementById(`text${listId}`).className.split(' ')[1];
       p.removeChild(c);
-      sendRequest('/delete', { uniqueId: '' });
+      sendRequest('/delete', 'POST', { uniqueId: className });
       console.log('deleted');
     }
   };

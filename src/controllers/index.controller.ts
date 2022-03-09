@@ -41,7 +41,7 @@ class IndexController {
   public removeTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       await this.coreService.removeTodo(<User>req.user, <DeleteTodo>req.body);
-      res.status(200).send(req.body);
+      res.status(200).send({});
     } catch (error) {
       next(error);
     }
