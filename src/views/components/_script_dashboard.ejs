@@ -60,8 +60,8 @@
 
   deleteList = listId => {
     let current = document.getElementById(`text${listId}`).innerHTML;
-    let deleteComfirm = confirm(`Are you sure to delete ${current}`);
-    if (deleteComfirm) {
+    let deleteConfirm = confirm(`Are you sure to delete ${current}`);
+    if (deleteConfirm) {
       let p = document.getElementById('list');
       let c = document.getElementById(`list${listId}`);
       p.removeChild(c);
