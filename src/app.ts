@@ -14,6 +14,9 @@ import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 import path from 'path';
+import { Server, Socket } from 'socket.io';
+import { createServer } from 'http';
+import { handleSocketIo } from './socket';
 
 class App {
   public app: express.Application;
@@ -33,7 +36,19 @@ class App {
   }
 
   public listen() {
-    this.app.listen(this.port, () => {
+    const httpServer = createServer(this.app);
+
+    const io = new Server(httpServer, {
+      /**
+       * Since Socket.IO v3, you need to explicitly enable Cross-Origin Resource Sharing
+       * */
+      // cors: {
+      //     origin: 'http://localhost:3000',
+      //     methods: ['GET', 'POST'],
+      // },
+    });
+    handleSocketIo.SetIo(io);
+    httpServer.listen(this.port, () => {
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
       logger.info(`🚀 App listening on the port ${this.port}`);
