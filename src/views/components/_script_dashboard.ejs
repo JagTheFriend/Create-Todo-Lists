@@ -41,18 +41,19 @@
     }
   };
 
-  addList = () => {
+  addList = async () => {
     // get
     let inputText = filterList(input.value);
     // set
     if (inputText) {
+      const { uniqueId } = await sendRequest('/new', 'POST', { content: inputText, dateCreated: new Date().toISOString() });
       list.innerHTML += ` <li class=" my-3 py-3 shadow list-group-item " id="list${listNum}">
                 <div class="row">
                 <div class="col-1">
                 <input class="mark-as-done" type="checkbox" id="check${listNum}" onclick="done(${listNum})">
                 </div>
                 <div class="col-6">
-                    <span class=" h4" id="text${listNum}"> ${inputText} </span>
+                    <span class="h4 ${uniqueId}" id="text${listNum}"> ${inputText} </span>
                 </div>
                 <div class="col-4">
                      <button class=" btn btn-dark" onclick="deleteList(${listNum})">Delete</button>
@@ -63,7 +64,6 @@
       input.value = '';
       listNum++;
       fixCheckBoxBug('checked-already');
-      sendRequest('/new', 'POST', { content: inputText, dateCreated: new Date().toISOString() });
     }
   };
 
