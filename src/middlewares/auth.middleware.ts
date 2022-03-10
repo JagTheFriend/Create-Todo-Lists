@@ -19,13 +19,16 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
         req.user = findUser;
         next();
       } else {
-        next(new HttpException(401, 'Wrong authentication token'));
+        // next(new HttpException(401, 'Wrong authentication token'));
+        res.status(500).redirect('/login');
       }
     } else {
-      next(new HttpException(404, 'Authentication token missing'));
+      // next(new HttpException(404, 'Authentication token missing'));
+      res.status(500).redirect('/login');
     }
   } catch (error) {
-    next(new HttpException(401, 'Wrong authentication token'));
+    // next(new HttpException(401, 'Wrong authentication token'));
+    res.status(500).redirect('/login');
   }
 };
 
