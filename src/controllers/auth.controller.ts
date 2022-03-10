@@ -4,7 +4,33 @@ import { RequestWithUser } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
 import AuthService from '@services/auth.service';
 
-class AuthController {
+class RenderAuthPage {
+  public renderSignUp = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.status(200).render('auth', { signup: true });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public renderLogIn = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.status(200).render('auth', { signup: false });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public renderLogOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      res.status(200).render('auth', { signup: false });
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+class AuthController extends RenderAuthPage {
   public authService = new AuthService();
 
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
