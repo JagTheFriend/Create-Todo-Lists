@@ -31,8 +31,7 @@ class IndexController {
 
   public addTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      await this.coreService.addTodo(<User>req.user, <CreateNewTodo>req.body);
-      res.status(200).send(req.body);
+      res.status(200).send(await this.coreService.addTodo(<User>req.user, <CreateNewTodo>req.body));
     } catch (error) {
       next(error);
     }

@@ -1,17 +1,19 @@
-import { User } from '@interfaces/users.interface';
+import { TodoList, User } from '@interfaces/users.interface';
 import { CreateNewTodo, DeleteTodo } from '@dtos/features.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { v4 as UUIDv4 } from 'uuid';
 
 class CoreService {
-  public async viewTodo(user: User): Promise<any> {
+  public async viewTodo(user: User): Promise<{ todoList: TodoList[]; uniqueIds: string[] }> {
     return { todoList: user.todoList, uniqueIds: user.uniqueIds };
   }
 
-  public async addTodo(user: User, data: CreateNewTodo): Promise<void> {
+  public async addTodo(user: User, data: CreateNewTodo): Promise<{ uniqueId: string }> {
+    const _id = UUIDv4();
     user.todoList.push({ content: data.content, dateCreated: data.dateCreated });
-    user.uniqueIds.push(UUIDv4());
+    user.uniqueIds.push(_id);
     await user.save();
+    return { uniqueId: _id };
   }
 
   public async removeTodo(user: User, uniqueId: DeleteTodo): Promise<void> {
