@@ -2,15 +2,17 @@
 <html lang="en">
   <%- include('./components/_header.ejs') %> <%- include('./components/_style.ejs') %>
   <body>
-    <div class="container rounded-3 border border-2 border-dark my-5 bg-white" style="height: auto">
-      <div>
+    <div class="container" style="height: auto;">
+      <a href="/logout" class="mt-2 btn btn-danger">Logout</a>
+      <div class="rounded-3 border border-2 border-dark my-2 bg-white text-center"
+        style="padding-bottom: 2rem;">
         <h1 class="h1">Todo List</h1>
         <div class="row">
-          <div class="col-8">
+          <div class="col-8" style="margin: 0 auto; float: none;">
             <input class="py-3 form-control shadow" placeholder="Enter your task" type="text" id="inputText" />
           </div>
-          <div class="col-2">
-            <button onclick="addList()" class="mt-2 btn btn-dark">Add</button>
+          <div>
+            <button onclick="addList()" class="mt-4 btn btn-dark">Add</button>
           </div>
         </div>
       </div>
