@@ -40,7 +40,7 @@ class IndexController {
   public removeTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       await this.coreService.removeTodo(<User>req.user, <DeleteTodo>req.body);
-      res.status(200).send({});
+      res.status(200).send({ message: 'Removed todo' });
     } catch (error) {
       next(error);
     }
@@ -49,7 +49,7 @@ class IndexController {
   public editTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       await this.coreService.editTodo(<User>req.user, <UpdatedTodo>req.body);
-      res.status(200).send({});
+      res.status(200).send({ message: 'Updated todo' });
     } catch (error) {
       next(error);
     }
