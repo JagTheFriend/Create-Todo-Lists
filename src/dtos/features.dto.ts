@@ -1,4 +1,4 @@
-import { IsDateString, IsString } from 'class-validator';
+import { IsDateString, IsString, IsUUID } from 'class-validator';
 
 export class CreateNewTodo {
   @IsString()
@@ -9,6 +9,14 @@ export class CreateNewTodo {
 }
 
 export class DeleteTodo {
-  @IsString()
+  @IsUUID()
   public uniqueId: string;
+}
+
+export class UpdatedTodo {
+  @IsUUID()
+  public uniqueId: string;
+
+  @IsString()
+  public content: string;
 }
