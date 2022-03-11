@@ -1,7 +1,7 @@
 import CoreService from '@services/core.service';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { NextFunction, Response } from 'express';
-import { CreateNewTodo, DeleteTodo } from '@dtos/features.dto';
+import { CreateNewTodo, DeleteTodo, UpdatedTodo } from '@dtos/features.dto';
 import { User } from '@interfaces/users.interface';
 
 class IndexController {
@@ -40,6 +40,15 @@ class IndexController {
   public removeTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       await this.coreService.removeTodo(<User>req.user, <DeleteTodo>req.body);
+      res.status(200).send({});
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public editTodo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      await this.coreService.editTodo(<User>req.user, <UpdatedTodo>req.body);
       res.status(200).send({});
     } catch (error) {
       next(error);
