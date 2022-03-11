@@ -103,9 +103,10 @@
 
   editList = listId => {
     let currentText = document.getElementById(`text${listId}`);
-    let newText = prompt('Wanna Change list?', currentText.innerHTML);
+    let newText = prompt('Enter the name of the list:', currentText.innerHTML);
     if (filterList(newText)) {
       currentText.innerHTML = newText;
+      sendRequest('/edit', 'POST', { uniqueId: currentText.className.split(' ')[1], content: newText });
     }
   };
 
