@@ -1,5 +1,5 @@
 import { TodoList, User } from '@interfaces/users.interface';
-import { CreateNewTodo, DeleteTodo } from '@dtos/features.dto';
+import { CreateNewTodo, DeleteTodo, UpdatedTodo } from '@dtos/features.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { v4 as UUIDv4 } from 'uuid';
 
@@ -22,6 +22,13 @@ class CoreService {
     user.uniqueIds.splice(index, 1);
     user.todoList.splice(index, 1);
     await user.save();
+  }
+
+  public async editTodo(user: User, data: UpdatedTodo): Promise<void> {
+    const index = user.uniqueIds.indexOf(data.uniqueId);
+    if (index === -1) throw new HttpException(402, `Invalid ID: ${data.uniqueId}`);
+    user.todoList[index].content = data.content;
+    user.save();
   }
 }
 
