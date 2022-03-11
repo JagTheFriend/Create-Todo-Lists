@@ -27,8 +27,8 @@ class CoreService {
   public async editTodo(user: User, data: UpdatedTodo): Promise<void> {
     const index = user.uniqueIds.indexOf(data.uniqueId);
     if (index === -1) throw new HttpException(402, `Invalid ID: ${data.uniqueId}`);
-    user.todoList[index].content = data.content;
-    user.save();
+    user.todoList[index] = { content: data.content, dateCreated: new Date().toISOString() };
+    await user.save();
   }
 }
 
