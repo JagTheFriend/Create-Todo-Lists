@@ -1,0 +1,39 @@
+@base_url = http://localhost:3000
+@localTime = "{{$localDatetime iso8601}}"
+@uniqueId = "734687de-431d-44e0-86d0-2c3a81608953"
+# "{{$randomInt 1 1000}}"
+
+###
+# Adding new content into Todo list
+POST {{base_url}}/new
+Content-Type: application/json
+
+{
+  "content": "this is smth sus",
+  "dateCreated": {{localTime}}
+}
+
+###
+# Get all the items in the Todo list
+GET {{base_url}}/view HTTP/1.1
+
+
+###
+# Update Todo
+POST {{base_url}}/edit HTTP/1.1
+Content-Type: application/json
+
+{
+  "content": "hi",
+  "uniqueId": {{uniqueId}}
+}
+
+
+###
+# Delete item from Todo list
+POST {{base_url}}/delete HTTP/1.1
+Content-Type: application/json
+
+{
+  "uniqueId": {{uniqueId}}
+}

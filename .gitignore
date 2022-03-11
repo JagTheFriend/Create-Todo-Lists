@@ -1,6 +1,6 @@
 # Other
 other/
-src/http
+# src/http
 
 # Logs
 logs
@@ -78,7 +78,7 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.env.development.local
+# .env.development.local
 .env.test.local
 .env.production.local
 .env.local
@@ -132,5 +132,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-src/http/core.http
+# src/http/core.http
 .gitignore
