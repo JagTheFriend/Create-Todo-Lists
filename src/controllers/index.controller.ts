@@ -9,13 +9,7 @@ class IndexController {
 
   public index = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      res
-        .status(200)
-        .set(
-          'Content-Security-Policy',
-          "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
-        )
-        .render('dashboard');
+      res.status(300).redirect('/dashboard');
     } catch (error) {
       next(error);
     }
